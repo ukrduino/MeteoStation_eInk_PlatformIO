@@ -48,8 +48,8 @@ float bedRoomTemp_prev = 0.0;
 float bedRoomHum = 55.1;
 float bedRoomHum_prev = 0.0;
 float pressure = 987.0;
-int numberOfValues = 90;
-int pressureValues[90];
+int numberOfValues = 80;
+int pressureValues[80];
 unsigned long lastPressureSave = 0;
 unsigned long  pressureSavePeriod = 45 * 60000;
 unsigned long lastGetSensorData = 0;
@@ -1860,7 +1860,6 @@ void reconnectToBroker() {
 	 } else {
 		 return outTemp1;
 	 }
-	 
  }
 
  void drawHomeData(int hOff, int vOff, int hOff_2, int vOff_2) {
@@ -1879,11 +1878,16 @@ void reconnectToBroker() {
 	int humCirclX_2 = hOff_2 + 150; 
 	int humCirclY_2 = vOff_2 + 0; 
 	int humCirclR_2 = 40; // 50
+  int homeCirclX_2 = hOff_2 + 120; 
+	int homeCirclY_2 = vOff_2 + 62; 
+	int homeCirclR_2 = 25; // 50
 	drawInfoCitcle(tempCirclX, tempCirclY, tempCirclR);
 	drawInfoCitcle(humCirclX, humCirclY, humCirclR);
 	drawInfoCitcle(presCirclX, presCirclY, presCirclR);
 	drawInfoCitcle(tempCirclX_2, tempCirclY_2, tempCirclR);
 	drawInfoCitcle(humCirclX_2, humCirclY_2, humCirclR);
+  drawInfoCitcle(homeCirclX_2, homeCirclY_2, homeCirclR_2);
+  display.drawBitmap(gridicons_house, 310, 240, 24, 24, GxEPD_WHITE);
 	display.drawLine(hOff + 53, vOff + 135, hOff + 147, vOff + 135, GxEPD_BLACK);
 	drawPressureChart(hOff, vOff);
 	display.setTextColor(GxEPD_BLACK);
@@ -1918,11 +1922,9 @@ void setBackground(const uint8_t *bitmap) {
 
 	if (blackImage) {
 		display.drawBitmap(bitmap, 0, 0, 400, 300, GxEPD_BLACK);
-		display.drawBitmap(gridicons_house, 310, 240, 24, 24, GxEPD_WHITE);
 		blackImage = false;
 	} else {
 		display.drawBitmap(bitmap, 0, 0, 400, 300, GxEPD_WHITE);
-		display.drawBitmap(gridicons_house, 310, 240, 24, 24, GxEPD_BLACK);
 		blackImage = true;
 	}
 }
